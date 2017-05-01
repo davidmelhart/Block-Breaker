@@ -1,0 +1,16 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Sripts\Brick.cs">
+    <Files>
+      <File FileName="Assets\Sripts\MusicPlayer.cs" Line="26" Column="3" />
+      <File FileName="Assets\Sripts\LoseCollider.cs" Line="15" Column="32" />
+      <File FileName="Assets\Sripts\Paddle.cs" Line="24" Column="3" />
+      <File FileName="Assets\Sripts\Ball.cs" Line="18" Column="3" />
+      <File FileName="Assets\Sripts\Brick.cs" Line="2" Column="34" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
