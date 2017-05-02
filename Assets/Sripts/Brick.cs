@@ -3,28 +3,57 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Brick : MonoBehaviour {
+	public AudioClip crack;
+	public Sprite[] hitSprites;
+	public static int breakableCount = 0;
+	public GameObject smoke;
 
-	public int maxHits;
+	private LevelManager levelManager;
 	private int timesHit;
+	private bool isBreakable;
 
 	// Use this for initialization
 	void Start () {
+		levelManager = GameObject.FindObjectOfType<LevelManager> ();
+
 		timesHit = 0;
+		isBreakable = (this.tag == "Breakable");
+
+		if (isBreakable) {
+			breakableCount++;
+		}
 	}
 
 	void OnCollisionEnter2D(Collision2D collision) {
-		timesHit++;
-		SimulateWin ();
+		AudioSource.PlayClipAtPoint (crack, transform.position);
+		if (isBreakable) {
+			HandleHits ();
+		}
 	}
-
-	//TODO Remove this when winning is implemented
-	void SimulateWin () {
-		LevelManager.LoadLevel ("Win");
-	}
-
-
-	// Update is called once per frame
-	void Update () {
 		
+	void HandleHits() {
+		timesHit++;
+		int maxHits = hitSprites.Length + 1;
+		if (timesHit >= maxHits) {
+			Destroy (gameObject);
+
+			GameObject puff =(GameObject)Instantiate(smoke, gameObject.transform.position, Quaternion.identity);
+			puff.GetComponent<ParticleSystem>().startColor = gameObject.GetComponent<SpriteRenderer> ().color;
+
+			breakableCount --;
+			levelManager.BrickDestroyed ();
+		} else {
+			LoadSprites ();
+		}
 	}
+
+	void LoadSprites () {
+		int spriteIndex = timesHit - 1;
+		if (hitSprites [spriteIndex] != null) {
+			this.GetComponent<SpriteRenderer> ().sprite = hitSprites [spriteIndex];
+		} else {
+			Debug.LogError("Brick Sprite Missing!");
+		}
+	}
+
 }

@@ -9,14 +9,20 @@ public class Ball : MonoBehaviour {
 
 	private bool isStarted = false;
 
-	void Awake () {
-		
-	}
-
 	// Use this for initialization
 	void Start () {
 		paddle = GameObject.FindObjectOfType <Paddle> ();
 		paddleToBallVector = this.transform.position - paddle.transform.position;
+
+	}
+
+	void OnCollisionEnter2D(Collision2D collision) {
+		Vector2 bounce = new Vector2 (Random.Range (0f, 0.2f), Random.Range (0f, 0.2f));
+		if (isStarted) {
+			AudioSource audio = GetComponent<AudioSource> ();
+			audio.Play ();
+			GetComponent<Rigidbody2D> ().velocity += bounce;
+		}
 	}
 	
 	// Update is called once per frame
@@ -30,5 +36,4 @@ public class Ball : MonoBehaviour {
 			}
 		}
 	}
-
 }
